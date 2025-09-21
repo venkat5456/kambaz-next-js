@@ -17,15 +17,11 @@ export default function Landing() {
       <ul>
         <li>
           <a href="https://github.com/venkat5456/kambaz-next-js" target="_blank">
-            Kambaz Repository
-          </a>
-        </li>
-        <li>
-          <a href="https://github.com/venkat5456/labs" target="_blank">
-            Labs Repository
+            Repository (Kambaz + Labs)
           </a>
         </li>
       </ul>
     </main>
   );
 }
+
