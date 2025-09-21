@@ -1,39 +1,42 @@
-// app/(Kambaz)/Courses/[cid]/Assignments/[aid]/page.tsx
-
-export default function AssignmentEditor({
-  params,
-}: {
-  params: { cid: string; aid: string };
-}) {
+export default function AssignmentEditor({ params }: { params: { cid: string, aid: string } }) {
   return (
-    <div style={{ padding: "1rem" }}>
-      <h1>Assignment Editor</h1>
-      <p>Course ID: {params.cid}</p>
-      <p>Assignment ID: {params.aid}</p>
+    <div id="wd-assignment-editor">
+      <h3>Assignment Editor</h3>
 
-      <label htmlFor="name">Assignment Name</label>
-      <input
-        id="name"
-        defaultValue={`Assignment ${params.aid}`}
-        className="border p-1 block mb-4"
-      />
+      <label>Assignment Name</label><br/>
+      <input defaultValue={`Assignment ${params.aid}`} /><br/>
 
-      <label htmlFor="description">Description</label>
-      <textarea
-        id="description"
-        className="border p-1 block w-full h-24 mb-4"
-      >
-        This assignment is available online. Submit a link to your web
-        application running on Vercel.
-      </textarea>
+      <label>Description</label><br/>
+      <textarea defaultValue="This assignment is available online. Submit a link to your web app running on Vercel." /><br/>
 
-      <label htmlFor="points">Points</label>
-      <input
-        id="points"
-        type="number"
-        defaultValue={100}
-        className="border p-1 block mb-4"
-      />
+      <label>Points</label><br/>
+      <input type="number" defaultValue={100} /><br/>
+
+      <label>Assignment Group</label><br/>
+      <select><option>ASSIGNMENTS</option></select><br/>
+
+      <label>Display Grade As</label><br/>
+      <select><option>Percentage</option><option>Points</option><option>Letter Grade</option></select><br/>
+
+      <fieldset>
+        <legend>Submission Type</legend>
+        <label><input type="checkbox" />Text Entry</label><br/>
+        <label><input type="checkbox" />Website URL</label><br/>
+        <label><input type="checkbox" />Media Recordings</label><br/>
+        <label><input type="checkbox" />Student Annotations</label><br/>
+        <label><input type="checkbox" />File Uploads</label><br/>
+      </fieldset>
+
+      <fieldset>
+        <legend>Assign To</legend>
+        <input defaultValue="Everyone" /><br/>
+        <label>Due</label><input type="date" /><br/>
+        <label>Available from</label><input type="date" />
+        <label>Until</label><input type="date" /><br/>
+      </fieldset>
+
+      <button>Cancel</button>
+      <button>Save</button>
     </div>
   );
 }

@@ -13,3 +13,4 @@ export default function LabsLayout({ children }: { children: ReactNode }) {
     </table>
   );
 }
+

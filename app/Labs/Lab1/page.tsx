@@ -1,91 +1,50 @@
-"use client";
-
 export default function Lab1() {
   return (
-    <div style={{ padding: "1rem" }}>
-      <h2>Lab 1A – Environment + HTML</h2>
+    <div id="wd-lab1">
+      <h2>Lab 1</h2>
+      <h3>HTML Examples</h3>
 
-      <h3>Heading Tags</h3>
-      <h1>This is Heading 1</h1>
-      <h2>This is Heading 2</h2>
-      <h3>This is Heading 3</h3>
-      <h6>This is Heading 6</h6>
+      {/* Ordered List */}
+      <div id="wd-ol">
+        <h4>Ordered List</h4>
+        <h5>Steps to make Pancakes</h5>
+        <ol id="wd-pancakes">
+          <li>Mix dry ingredients</li>
+          <li>Add wet ingredients</li>
+          <li>Stir to combine</li>
+          <li>Heat a skillet</li>
+          <li>Pour batter</li>
+          <li>Flip and cook</li>
+          <li>Serve and enjoy</li>
+        </ol>
 
-      <p>This is a sample paragraph demonstrating HTML paragraphs.</p>
+        <h5>My Favorite Recipe: Making Masala Chai</h5>
+        <ol id="wd-my-favorite-recipe">
+          <li>Boil water and add tea leaves</li>
+          <li>Add milk, sugar, and spices</li>
+          <li>Simmer, strain, and serve hot</li>
+        </ol>
+      </div>
 
-      <h3>Anchor Tags</h3>
-      <a href="https://www.google.com">Google</a><br/>
-      <a href="https://www.wikipedia.org">Wikipedia</a><br/>
+      {/* Unordered List */}
+      <div id="wd-ul">
+        <h4>Unordered List</h4>
+        <h5>My Favorite Books</h5>
+        <ul id="wd-my-books">
+          <li>Dune</li>
+          <li>Lord of the Rings</li>
+          <li>Endes Game</li>
+          <li>Red Mars</li>
+          <li>The Forever War</li>
+        </ul>
 
-      <h3>Lists</h3>
-      <ul>
-        <li>Learn HTML</li>
-        <li>Learn CSS</li>
-        <li>Learn JavaScript</li>
-      </ul>
-
-      <ol>
-        <li>Setup Environment</li>
-        <li>Write HTML</li>
-        <li>Run in Browser</li>
-      </ol>
-
-      <h3>Table Example</h3>
-      <table border={1} width="100%">
-        <thead>
-          <tr>
-            <th>Quiz</th>
-            <th>Topic</th>
-            <th>Date</th>
-            <th>Grade</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Q1</td>
-            <td>HTML</td>
-            <td>2/3/21</td>
-            <td>85</td>
-          </tr>
-          <tr>
-            <td>Q2</td>
-            <td>CSS</td>
-            <td>2/10/21</td>
-            <td>90</td>
-          </tr>
-          <tr>
-            <td>Q3</td>
-            <td>JavaScript</td>
-            <td>2/17/21</td>
-            <td>95</td>
-          </tr>
-        </tbody>
-        <tfoot>
-          <tr>
-            <td colSpan={3}>Average</td>
-            <td>90</td>
-          </tr>
-        </tfoot>
-      </table>
-
-      <h3>Forms</h3>
-      <label>Username:</label>
-      <input type="text" placeholder="jdoe" /><br/>
-      <label>Password:</label>
-      <input type="password" /><br/>
-
-      <h4>Favorite Topics:</h4>
-      <input type="checkbox" /> HTML
-      <input type="checkbox" /> CSS
-      <input type="checkbox" /> JavaScript<br/>
-
-      <h4>Gender:</h4>
-      <input type="radio" name="gender" /> Male
-      <input type="radio" name="gender" /> Female<br/>
-
-      <button type="button" onClick={() => alert("Form Submitted!")}>
-        Submit
-      </button>
+        <h5>My Favorite Movies</h5>
+        <ul id="wd-my-movies">
+          <li>Inception</li>
+          <li>Interstellar</li>
+          <li>The Matrix</li>
+        </ul>
+      </div>
     </div>
   );
 }
