@@ -1,207 +1,245 @@
+"use client";
+
 export default function Lab1() {
   return (
     <div id="wd-lab1">
+      <h1>Labs</h1>
       <h2>Lab 1</h2>
       <h3>HTML Examples</h3>
 
-      {/* anchor target for Back to Top */}
-      <a id="top"></a>
-
-      {/* Single Page Application navigation (in-page anchors) */}
-      <nav
-        id="wd-spa-nav"
-        style={{ display: "flex", gap: 12, flexWrap: "wrap", margin: "8px 0 12px" }}
-      >
-        <a href="#wd-headings">Headings</a>
-        <a href="#wd-paragraph">Paragraph</a>
-        <a href="#wd-ol">Ordered List</a>
-        <a href="#wd-ul">Unordered List</a>
-        <a href="#wd-forms">Forms</a>
-        <a href="#wd-anchor">Anchor Tag</a>
-      </nav>
-      <hr />
-
       {/* Headings */}
       <div id="wd-headings">
-        <h1>Heading 1</h1>
-        <h2>Heading 2</h2>
-        <h3>Heading 3</h3>
-        <h4>Heading 4</h4>
-        <h5>Heading 5</h5>
-        <h6>Heading 6</h6>
+        <h4>Heading Tags</h4>
+        <p>
+          Text documents are often broken up into several sections and
+          subsections. Each section is usually prefaced with a short title
+          or heading that attempts to summarize the topic of the section
+          it precedes. The font of the section headings are usually larger
+          and bolder than the plain text. There are 6 heading tags for
+          different sizes: h1, h2, h3, h4, h5, and h6. Tag h1 is the
+          largest heading and h6 is the smallest heading.
+        </p>
       </div>
 
-      {/* Paragraph */}
+      {/* Paragraphs */}
       <div id="wd-paragraph">
-        <h4>Paragraph Example</h4>
-        <p>
-          This is a sample paragraph written for Lab 1. A paragraph groups together 
-          sentences to form a block of text. You can use the &lt;p&gt; tag to add 
-          descriptions, explanations, or any textual content in your web page.
+        <h4>Paragraph Tag</h4>
+        <p id="wd-p-1">
+          This is the first paragraph. The paragraph tag is used to format
+          vertical gaps between long pieces of text like this one.
+        </p>
+        <p id="wd-p-2">
+          This is the second paragraph. Even though there is a deliberate white
+          gap between the paragraph above and this paragraph, by default browsers
+          render them as one contiguous piece of text as shown here on the right.
+        </p>
+        <p id="wd-p-3">
+          This is the third paragraph. Wrap each paragraph with the paragraph tag
+          to tell browsers to render the gaps.
         </p>
       </div>
 
-      {/* Anchor Tag Section */}
-      <section id="wd-anchor" style={{ margin: "12px 0" }}>
-        <h4>Anchor Tag</h4>
-        <p>
-          External link:{" "}
-          <a
-            id="wd-anchor-external"
-            href="https://www.northeastern.edu"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Northeastern University
-          </a>
-        </p>
-        <p>
-          In-page jump: Go to the{" "}
-          <a href="#wd-ol">Ordered List</a> section, or{" "}
-          <a href="#top">Back to top</a>.
-        </p>
-      </section>
-      <hr />
-
-      {/* Ordered List */}
-      <div id="wd-ol">
-        <h4>Ordered List</h4>
-        <h5>Steps to make Pancakes</h5>
+      {/* Lists */}
+      <div id="wd-lists">
+        <h4>List Tags</h4>
+        <h5>Ordered List Tag</h5>
         <ol id="wd-pancakes">
           <li>Mix dry ingredients</li>
           <li>Add wet ingredients</li>
           <li>Stir to combine</li>
-          <li>Heat a skillet</li>
+          <li>Heat skillet</li>
           <li>Pour batter</li>
-          <li>Flip and cook</li>
-          <li>Serve and enjoy</li>
+          <li>Cook until bubbly</li>
+          <li>Flip and cook other side</li>
+          <li>Serve and enjoy!</li>
         </ol>
 
-        <h5>My Favorite Recipe: Making Masala Chai</h5>
-        <ol id="wd-my-favorite-recipe">
-          <li>Boil water and add tea leaves</li>
-          <li>Add milk, sugar, and spices</li>
-          <li>Simmer, strain, and serve hot</li>
-        </ol>
-      </div>
-
-      {/* Unordered List */}
-      <div id="wd-ul">
-        <h4>Unordered List</h4>
-        <h5>My Favorite Books</h5>
-        <ul id="wd-my-books">
+        <h5>Unordered List Tag</h5>
+        <ul id="wd-books">
           <li>Dune</li>
           <li>Lord of the Rings</li>
-          <li>Ender Game</li>
+          <li>Ender’s Game</li>
           <li>Red Mars</li>
           <li>The Forever War</li>
         </ul>
-
-        <h5>My Favorite Movies</h5>
-        <ul id="wd-my-movies">
-          <li>Inception</li>
-          <li>Interstellar</li>
-          <li>The Matrix</li>
-        </ul>
       </div>
 
-      {/* Forms Section (moved from Lab4 → appended here) */}
+      {/* Table */}
+      <div id="wd-tables">
+        <h4>Table Tag</h4>
+        <table border={1} width="100%">
+          <thead>
+            <tr>
+              <th>Quiz</th>
+              <th>Topic</th>
+              <th>Date</th>
+              <th>Grade</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Q1</td>
+              <td>HTML</td>
+              <td>2/3/21</td>
+              <td>85</td>
+            </tr>
+            <tr>
+              <td>Q2</td>
+              <td>CSS</td>
+              <td>2/10/21</td>
+              <td>90</td>
+            </tr>
+            <tr>
+              <td>Q3</td>
+              <td>JavaScript</td>
+              <td>2/17/21</td>
+              <td>95</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colSpan={3}>Average</td>
+              <td>90</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+
+      {/* Images */}
+      <div id="wd-images">
+        <h4>Image Tag</h4>
+        <img
+          id="wd-starship"
+          width="400px"
+          src="https://www.staradvertiser.com/wp-content/uploads/2021/08/web1_Starship-gap2.jpg"
+        />
+        <img id="wd-teslabot" src="/images/teslabot.jpg" height="200px" />
+      </div>
+
+      {/* Forms */}
       <div id="wd-forms">
-        <h3>Lab 1: Forms</h3>
+        <h4>Form Elements</h4>
+        <form id="wd-text-fields">
+          <h5>Text Fields</h5>
+          <label htmlFor="wd-username">Username:</label>
+          <input id="wd-username" placeholder="jdoe" /> <br />
 
-        {/* Username */}
-        <section id="wd-forms-username">
-          <h4>Lab - Forms - Username</h4>
-          <input id="wd-username" type="text" placeholder="venkat5456" />
-        </section>
-        <hr />
+          <label htmlFor="wd-password">Password:</label>
+          <input id="wd-password" type="password" defaultValue="123@#$asd" />
+          <br />
 
-        {/* Password */}
-        <section id="wd-forms-password">
-          <h4>Lab - Forms - Password</h4>
-          <input id="wd-password" type="password" placeholder="••••••••" />
-        </section>
-        <hr />
+          <label htmlFor="wd-firstname">First name:</label>
+          <input id="wd-firstname" type="text" title="John" /> <br />
 
-        {/* First & Last Name */}
-        <section id="wd-forms-names">
-          <h4>Lab - Forms - First Name</h4>
-          <input id="wd-first-name" type="text" placeholder="Manikanta" /><br /><br />
-          <h4>Lab - Forms - Last Name</h4>
-          <input id="wd-last-name" type="text" placeholder="Sai" />
-        </section>
-        <hr />
+          <label htmlFor="wd-lastname">Last name:</label>
+          <input
+            id="wd-lastname"
+            type="text"
+            placeholder="Doe"
+            defaultValue="Wonderland"
+            title="Last name"
+          />{" "}
+          <br />
 
-        {/* Textarea */}
-        <section id="wd-forms-textareas">
-          <h4>Lab - Forms - Textareas</h4>
-          <textarea
-            id="wd-textarea"
-            rows={4}
-            cols={40}
-            placeholder="Write about your favorite course here..."
-          />
-        </section>
-        <hr />
+          {/* Textarea */}
+          <h5>Text Box</h5>
+          <label htmlFor="wd-textarea">Biography:</label>
+          <br />
+          <textarea id="wd-textarea" cols={30} rows={5}>
+            Lorem ipsum dolor sit amet...
+          </textarea>
+          <br />
 
-        {/* Radios */}
-        <section id="wd-forms-radios">
-          <h4>Lab - Forms - Radios</h4>
-          <input id="wd-radio-comedy" type="radio" name="genre" value="comedy" /> Comedy<br />
-          <input id="wd-radio-drama" type="radio" name="genre" value="drama" /> Drama<br />
-          <input id="wd-radio-scifi" type="radio" name="genre" value="scifi" /> SciFi<br />
-          <input id="wd-radio-fantasy" type="radio" name="genre" value="fantasy" /> Fantasy
-        </section>
-        <hr />
+          {/* Buttons */}
+          <h5>Buttons</h5>
+          <button
+            type="button"
+            id="wd-all-good"
+            onClick={() => alert("Life is Good!")}
+          >
+            Hello World!
+          </button>
+          <br />
 
-        {/* Checkboxes */}
-        <section id="wd-forms-checkboxes">
-          <h4>Lab - Forms - Checkboxes</h4>
-          <input id="wd-checkbox-comedy" type="checkbox" value="comedy" /> Comedy<br />
-          <input id="wd-checkbox-drama" type="checkbox" value="drama" /> Drama
-        </section>
-        <hr />
+          {/* Radio */}
+          <h5>Radio Buttons</h5>
+          <label>Favorite movie genre:</label>
+          <br />
+          <input type="radio" name="radio-genre" id="wd-radio-comedy" />
+          <label htmlFor="wd-radio-comedy">Comedy</label>
+          <br />
+          <input type="radio" name="radio-genre" id="wd-radio-drama" />
+          <label htmlFor="wd-radio-drama">Drama</label>
+          <br />
+          <input type="radio" name="radio-genre" id="wd-radio-scifi" />
+          <label htmlFor="wd-radio-scifi">Science Fiction</label>
+          <br />
+          <input type="radio" name="radio-genre" id="wd-radio-fantasy" />
+          <label htmlFor="wd-radio-fantasy">Fantasy</label>
+          <br />
 
-        {/* Selects */}
-        <section id="wd-forms-selects">
-          <h4>Lab - Forms - Select one option dropdown</h4>
-          <select id="wd-select-one-genre" defaultValue="">
-            <option value="" disabled>Select one…</option>
-            <option value="comedy">Comedy</option>
-            <option value="drama">Drama</option>
-            <option value="scifi">SciFi</option>
-            <option value="fantasy">Fantasy</option>
-          </select><br /><br />
+          {/* Checkboxes */}
+          <h5>Checkboxes</h5>
+          <label>Favorite movie genre:</label>
+          <br />
+          <input type="checkbox" id="wd-chkbox-comedy" />
+          <label htmlFor="wd-chkbox-comedy">Comedy</label>
+          <br />
+          <input type="checkbox" id="wd-chkbox-drama" />
+          <label htmlFor="wd-chkbox-drama">Drama</label>
+          <br />
+          <input type="checkbox" id="wd-chkbox-scifi" />
+          <label htmlFor="wd-chkbox-scifi">Science Fiction</label>
+          <br />
+          <input type="checkbox" id="wd-chkbox-fantasy" />
+          <label htmlFor="wd-chkbox-fantasy">Fantasy</label>
+          <br />
 
-          <h4>Lab - Forms - Select many options</h4>
-          <select id="wd-select-many-genres" multiple size={4}>
-            <option value="comedy">Comedy</option>
-            <option value="drama">Drama</option>
-            <option value="scifi">SciFi</option>
-            <option value="fantasy">Fantasy</option>
+          {/* Dropdown */}
+          <h5>Dropdowns</h5>
+          <label htmlFor="wd-select-one-genre">Favorite movie genre:</label>
+          <br />
+          <select id="wd-select-one-genre">
+            <option value="COMEDY">Comedy</option>
+            <option value="DRAMA">Drama</option>
+            <option value="SCIFI" selected>
+              Science Fiction
+            </option>
+            <option value="FANTASY">Fantasy</option>
           </select>
-        </section>
-        <hr />
+          <br />
 
-        {/* Email & Salary */}
-        <section id="wd-forms-email-salary">
-          <h4>Lab - Forms - Email</h4>
-          <input id="wd-email" type="email" placeholder="manikanta@example.com" /><br /><br />
-          <h4>Lab - Forms - Salary</h4>
-          <input id="wd-salary" type="number" placeholder="90000" />
-        </section>
-        <hr />
+          <label htmlFor="wd-select-many-genre">Favorite movie genres:</label>
+          <br />
+          <select multiple id="wd-select-many-genre">
+            <option value="COMEDY" selected>
+              Comedy
+            </option>
+            <option value="DRAMA">Drama</option>
+            <option value="SCIFI" selected>
+              Science Fiction
+            </option>
+            <option value="FANTASY">Fantasy</option>
+          </select>
+        </form>
+      </div>
 
-        {/* Rating & DOB */}
-        <section id="wd-forms-rating-dob">
-          <h4>Lab - Forms - Rating slider</h4>
-          <input id="wd-rating" type="range" min={0} max={10} defaultValue={7} /><br /><br />
-          <h4>Lab - Forms - DOB date picker</h4>
-          <input id="wd-dob" type="date" />
-        </section>
-        <hr />
-
-        <button type="button">Submit</button>
+      {/* Anchor */}
+      <div id="wd-links">
+        <h4>Anchor Tag</h4>
+        <p>
+          Please{" "}
+          <a href="https://www.lipsum.com" id="wd-lipsum">
+            click here
+          </a>{" "}
+          for dummy text.
+        </p>
+        <p>
+          Visit my{" "}
+          <a href="https://github.com/venkat5456" id="wd-github">
+            GitHub repo
+          </a>
+        </p>
       </div>
     </div>
   );
