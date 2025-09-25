@@ -42,7 +42,9 @@ export default function Lab1() {
       {/* Lists */}
       <div id="wd-lists">
         <h4>List Tags</h4>
+
         <h5>Ordered List Tag</h5>
+        <p>How to make pancakes:</p>
         <ol id="wd-pancakes">
           <li>Mix dry ingredients</li>
           <li>Add wet ingredients</li>
@@ -52,6 +54,16 @@ export default function Lab1() {
           <li>Cook until bubbly</li>
           <li>Flip and cook other side</li>
           <li>Serve and enjoy!</li>
+        </ol>
+
+        <h5>My favorite recipe: Masala Chai</h5>
+        <ol id="wd-your-favorite-recipe">
+          <li>Boil 1 cup of water</li>
+          <li>Add tea leaves and let it simmer</li>
+          <li>Add ginger, cardamom, and cinnamon</li>
+          <li>Pour in 1/2 cup milk</li>
+          <li>Add sugar to taste</li>
+          <li>Strain into a cup and serve hot</li>
         </ol>
 
         <h5>Unordered List Tag</h5>
