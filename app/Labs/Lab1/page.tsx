@@ -66,13 +66,13 @@ export default function Lab1() {
           <li>Strain into a cup and serve hot</li>
         </ol>
 
-        <h5>Unordered List Tag</h5>
+        <h5>My Favorite Books</h5>
         <ul id="wd-books">
-          <li>Dune</li>
-          <li>Lord of the Rings</li>
-          <li>Ender’s Game</li>
-          <li>Red Mars</li>
-          <li>The Forever War</li>
+          <li>Atomic Habits – James Clear</li>
+          <li>The Alchemist – Paulo Coelho</li>
+          <li>Rich Dad Poor Dad – Robert Kiyosaki</li>
+          <li>Harry Potter and the Sorcerer’s Stone – J.K. Rowling</li>
+          <li>Wings of Fire – A.P.J. Abdul Kalam</li>
         </ul>
       </div>
 
@@ -234,6 +234,45 @@ export default function Lab1() {
             <option value="FANTASY">Fantasy</option>
           </select>
         </form>
+      </div>
+
+      {/* ✅ Other HTML field types */}
+      <div id="wd-other-fields">
+        <h4>Other HTML field types</h4>
+
+        <label htmlFor="wd-text-fields-email"> Email: </label>
+        <input
+          type="email"
+          placeholder="jdoe@somewhere.com"
+          id="wd-text-fields-email"
+        />
+        <br />
+
+        <label htmlFor="wd-text-fields-salary-start"> Starting salary: </label>
+        <input
+          type="number"
+          defaultValue="100000"
+          placeholder="1000"
+          id="wd-text-fields-salary-start"
+        />
+        <br />
+
+        <label htmlFor="wd-text-fields-rating"> Rating: </label>
+        <input
+          type="range"
+          defaultValue="4"
+          max="5"
+          id="wd-text-fields-rating"
+        />
+        <br />
+
+        <label htmlFor="wd-text-fields-dob"> Date of birth: </label>
+        <input
+          type="date"
+          defaultValue="2000-01-21"
+          id="wd-text-fields-dob"
+        />
+        <br />
       </div>
 
       {/* Anchor */}

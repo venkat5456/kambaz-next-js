@@ -4,13 +4,16 @@ import CourseStatus from "./Status";
 export default function Home() {
   return (
     <div id="wd-home">
-      <table>
+      <table width="100%">
         <tbody>
           <tr>
+            {/* Main Content: Modules */}
             <td valign="top" width="70%">
               <Modules />
             </td>
-            <td valign="top">
+
+            {/* Sidebar: Course Status */}
+            <td valign="top" width="30%">
               <CourseStatus />
             </td>
           </tr>
@@ -19,3 +22,4 @@ export default function Home() {
     </div>
   );
 }
+
