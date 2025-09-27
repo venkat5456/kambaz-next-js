@@ -1,17 +1,11 @@
 "use client";
 
 import { ReactNode } from "react";
-import CourseNavigation from "../CourseNavigation";   // <-- ADD THIS LINE
+import CourseNavigation from "../CourseNavigation";
 
-export default function CoursesLayout(
-  { children, params }: { children: ReactNode; params: { cid: string } }
-) {
-  const { cid } = params;
-
+export default function CoursesLayout({ children }: { children: ReactNode }) {
   return (
     <div id="wd-courses">
-      <h2>Courses {cid}</h2>
-      <hr />
       <table>
         <tbody>
           <tr>
