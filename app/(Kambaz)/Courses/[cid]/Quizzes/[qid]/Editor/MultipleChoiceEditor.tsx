@@ -119,34 +119,32 @@ export default function MultipleChoiceEditor({
       {/* Choices */}
       <h5 className="mt-4 mb-2 fw-bold">Answers:</h5>
 
-      {choices.map((choice, index) => (
-        <div key={index} className="d-flex align-items-center gap-3 mb-2">
-          {/* Radio for correct answer */}
-          <input
-            type="radio"
-            checked={choice.correct}
-            onChange={() => setCorrectChoice(index)}
-          />
+      {choices.map((choice: any, index: number) => (
+  <div key={index} className="d-flex align-items-center gap-3 mb-2">
+    <input
+      type="radio"
+      checked={choice.correct}
+      onChange={() => setCorrectChoice(index)}
+    />
 
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Possible Answer"
-            value={choice.text}
-            onChange={(e) => updateChoice(index, e.target.value)}
-          />
+    <input
+      type="text"
+      className="form-control"
+      placeholder="Possible Answer"
+      value={choice.text}
+      onChange={(e) => updateChoice(index, e.target.value)}
+    />
 
-          {/* Delete button */}
-          {choices.length > 2 && (
-            <button
-              className="btn btn-outline-danger btn-sm"
-              onClick={() => removeChoice(index)}
-            >
-              🗑
-            </button>
-          )}
-        </div>
-      ))}
+    {choices.length > 2 && (
+      <button
+        className="btn btn-outline-danger btn-sm"
+        onClick={() => removeChoice(index)}
+      >
+        🗑
+      </button>
+    )}
+  </div>
+))}
 
       {/* Add new answer */}
       <button className="btn btn-link text-danger" onClick={addChoice}>
