@@ -35,7 +35,7 @@ export default function MultipleChoiceEditor({ cid, qid, question, refresh, clos
 
   const setCorrectChoice = (index: number) => {
     setChoices(
-      choices.map((c, i) => ({
+      choices.map((c: any, i: number) => ({
         ...c,
         correct: i === index,
       }))
