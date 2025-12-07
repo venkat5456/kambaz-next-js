@@ -7,8 +7,9 @@ import { getQuizById, getAttemptsForQuiz } from "../../client";
 
 export default function QuizAttemptsPage() {
   const { cid, qid } = useParams();
-  const [quiz, setQuiz] = useState(null);          // ⬅️ removed `<any>`
-  const [attempts, setAttempts] = useState([]);    // ⬅️ removed `<any[]>`
+
+  const [quiz, setQuiz] = useState<any>(null);
+  const [attempts, setAttempts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -18,12 +19,15 @@ export default function QuizAttemptsPage() {
 
       const list = await getAttemptsForQuiz(qid as string);
       setAttempts(list);
+
       setLoading(false);
     };
     load();
   }, [qid]);
 
-  if (loading) return <div className="p-4">Loading attempts…</div>;
+  if (loading) {
+    return <div className="p-4">Loading attempts…</div>;
+  }
 
   return (
     <div className="container mt-4" style={{ maxWidth: "900px" }}>
@@ -42,8 +46,9 @@ export default function QuizAttemptsPage() {
               <th>Date</th>
             </tr>
           </thead>
+
           <tbody>
-            {attempts.map((a) => (        // ⬅️ removed `: any`
+            {attempts.map((a: any) => (
               <tr key={a._id}>
                 <td>{a.attemptNumber}</td>
                 <td>
@@ -65,6 +70,7 @@ export default function QuizAttemptsPage() {
         >
           Back to Quiz Details
         </Link>
+
         <Link
           href={`/Courses/${cid}/Quizzes/${qid}/Results`}
           className="btn btn-primary"
