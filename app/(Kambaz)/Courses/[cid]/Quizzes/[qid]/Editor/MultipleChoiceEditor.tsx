@@ -12,7 +12,13 @@ interface Props {
   close: () => void;   // close editor
 }
 
-export default function MultipleChoiceEditor({ cid, qid, question, refresh, close }: Props) {
+export default function MultipleChoiceEditor({
+  cid,
+  qid,
+  question,
+  refresh,
+  close,
+}: Props) {
   const [title, setTitle] = useState(question?.title || "");
   const [points, setPoints] = useState(question?.points || 0);
   const [body, setBody] = useState(question?.body || "");
@@ -47,7 +53,9 @@ export default function MultipleChoiceEditor({ cid, qid, question, refresh, clos
   };
 
   const removeChoice = (index: number) => {
-    setChoices(choices.filter((_, i) => i !== index));
+    setChoices(
+      choices.filter((_: any, i: number) => i !== index)
+    );
   };
 
   const saveQuestion = async () => {
@@ -104,7 +112,7 @@ export default function MultipleChoiceEditor({ cid, qid, question, refresh, clos
         onChange={(e) => setTitle(e.target.value)}
       />
 
-      {/* Question Body (WYSIWYG) */}
+      {/* Question Body */}
       <label className="fw-bold">Question:</label>
       <RichTextEditor value={body} onChange={setBody} />
 
@@ -113,7 +121,7 @@ export default function MultipleChoiceEditor({ cid, qid, question, refresh, clos
 
       {choices.map((choice, index) => (
         <div key={index} className="d-flex align-items-center gap-3 mb-2">
-          {/* Radio button for correct answer */}
+          {/* Radio for correct answer */}
           <input
             type="radio"
             checked={choice.correct}
@@ -145,7 +153,7 @@ export default function MultipleChoiceEditor({ cid, qid, question, refresh, clos
         + Add Another Answer
       </button>
 
-      {/* Footer Buttons */}
+      {/* Footer */}
       <div className="d-flex gap-3 mt-4">
         <button className="btn btn-secondary" onClick={close}>
           Cancel
