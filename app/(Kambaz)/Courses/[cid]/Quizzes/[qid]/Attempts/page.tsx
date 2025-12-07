@@ -7,8 +7,8 @@ import { getQuizById, getAttemptsForQuiz } from "../../client";
 
 export default function QuizAttemptsPage() {
   const { cid, qid } = useParams();
-  const [quiz, setQuiz] = useState<any>(null);
-  const [attempts, setAttempts] = useState<any[]>([]);
+  const [quiz, setQuiz] = useState(null);          // ⬅️ removed `<any>`
+  const [attempts, setAttempts] = useState([]);    // ⬅️ removed `<any[]>`
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -43,7 +43,7 @@ export default function QuizAttemptsPage() {
             </tr>
           </thead>
           <tbody>
-            {attempts.map((a: any) => (
+            {attempts.map((a) => (        // ⬅️ removed `: any`
               <tr key={a._id}>
                 <td>{a.attemptNumber}</td>
                 <td>
