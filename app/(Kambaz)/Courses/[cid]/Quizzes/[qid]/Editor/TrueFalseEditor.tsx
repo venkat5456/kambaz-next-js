@@ -1,8 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { updateQuestion, createQuestion } from "../../client";
-import RichTextEditor from "./RichTextEditor";
+import { createQuestion, updateQuestion, deleteQuestion } from "../../client";
 
 interface Props {
   cid: string;
@@ -12,21 +11,25 @@ interface Props {
   close: () => void;
 }
 
-export default function TrueFalseEditor({ cid, qid, question, refresh, close }: Props) {
+export default function TrueFalseEditor({
+  cid,
+  qid,
+  question,
+  refresh,
+  close,
+}: Props) {
   const [title, setTitle] = useState(question?.title || "");
   const [points, setPoints] = useState(question?.points || 0);
-  const [body, setBody] = useState(question?.body || "");
-  const [correct, setCorrect] = useState(
-    question?.correctBoolean === true ? true : false
+  const [correctBoolean, setCorrectBoolean] = useState(
+    question?.correctBoolean ?? true
   );
 
   const save = async () => {
     const payload = {
       title,
       points,
-      body,
-      type: "TRUE_FALSE",
-      correctBoolean: correct,
+      type: "TRUE_FALSE",          // ✅ MUST MATCH MODEL
+      correctBoolean,              // ✅ MUST MATCH MODEL
     };
 
     if (question?._id) {
@@ -39,82 +42,81 @@ export default function TrueFalseEditor({ cid, qid, question, refresh, close }: 
     close();
   };
 
+  const remove = async () => {
+    if (question?._id) {
+      await deleteQuestion(question._id);
+      refresh();
+      close();
+    }
+  };
+
   return (
-    <div className="border p-4 rounded bg-white shadow-sm">
+    <div className="card p-4">
+      <h4 className="mb-3">True / False Question</h4>
 
-      {/* HEADER BAR */}
-      <div className="flex justify-between items-center mb-4">
-        <div className="flex gap-3">
-          {/* Title dropdown (Canvas-style) */}
+      {/* Question Title */}
+      <div className="mb-3">
+        <label className="form-label">Question</label>
+        <input
+          className="form-control"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          placeholder="Enter question text"
+        />
+      </div>
+
+      {/* Points */}
+      <div className="mb-3">
+        <label className="form-label">Points</label>
+        <input
+          type="number"
+          className="form-control"
+          value={points}
+          onChange={(e) => setPoints(Number(e.target.value))}
+        />
+      </div>
+
+      {/* True / False */}
+      <div className="mb-3">
+        <label className="form-label d-block">Correct Answer</label>
+
+        <div className="form-check">
           <input
-            className="form-control w-72"
-            placeholder="Question Title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            className="form-check-input"
+            type="radio"
+            name="tf"
+            checked={correctBoolean === true}
+            onChange={() => setCorrectBoolean(true)}
           />
-
-          {/* Type selector */}
-          <select className="form-select w-40" disabled>
-            <option>True/False</option>
-          </select>
+          <label className="form-check-label">True</label>
         </div>
 
-        {/* POINTS */}
-        <div className="text-lg">
-          pts:{" "}
+        <div className="form-check">
           <input
-            type="number"
-            className="border rounded p-1 w-16"
-            value={points}
-            onChange={(e) => setPoints(Number(e.target.value))}
+            className="form-check-input"
+            type="radio"
+            name="tf"
+            checked={correctBoolean === false}
+            onChange={() => setCorrectBoolean(false)}
           />
+          <label className="form-check-label">False</label>
         </div>
       </div>
 
-      {/* QUESTION BODY */}
-      <label className="fw-bold mb-1">Question:</label>
-      <RichTextEditor value={body} onChange={setBody} />
-
-      {/* ANSWER SECTION */}
-      <h5 className="mt-4 mb-3 fw-bold">Answers:</h5>
-
-      <div className="ms-3 d-flex flex-column gap-2">
-
-        {/* TRUE OPTION */}
-        <label className="d-flex align-items-center gap-2">
-          <input
-            type="radio"
-            name="tf"
-            checked={correct === true}
-            onChange={() => setCorrect(true)}
-          />
-          <span className={correct ? "text-success fw-semibold" : ""}>
-            True
-          </span>
-        </label>
-
-        {/* FALSE OPTION */}
-        <label className="d-flex align-items-center gap-2">
-          <input
-            type="radio"
-            name="tf"
-            checked={correct === false}
-            onChange={() => setCorrect(false)}
-          />
-          <span className={!correct ? "text-success fw-semibold" : ""}>
-            False
-          </span>
-        </label>
-      </div>
-
-      {/* BUTTONS */}
-      <div className="d-flex gap-3 mt-4">
-        <button className="btn btn-secondary" onClick={close}>
-          Cancel
+      {/* Actions */}
+      <div className="d-flex gap-2">
+        <button className="btn btn-success" onClick={save}>
+          Save
         </button>
 
-        <button className="btn btn-danger" onClick={save}>
-          {question?._id ? "Update Question" : "Save Question"}
+        {question?._id && (
+          <button className="btn btn-danger" onClick={remove}>
+            Delete
+          </button>
+        )}
+
+        <button className="btn btn-secondary" onClick={close}>
+          Cancel
         </button>
       </div>
     </div>

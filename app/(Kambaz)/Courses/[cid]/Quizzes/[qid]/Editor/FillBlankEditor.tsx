@@ -1,55 +1,42 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { getQuestionById, updateQuestion, createQuestion } from "../../client";
-import RichTextEditor from "./RichTextEditor";
+import { useState } from "react";
+import { createQuestion, updateQuestion, deleteQuestion } from "../../client";
 
-export default function FillBlankEditor({ cid, qid, question, refresh, close }: any) {
-  const [localQ, setLocalQ] = useState<any>(
-    question?._id
-      ? question
-      : {
-          title: "",
-          text: "",
-          points: 0,
-          correctAnswers: [""],
-          type: "FILL_BLANK",
-        }
+interface Props {
+  cid: string;
+  qid: string;
+  question: any;
+  refresh: () => void;
+  close: () => void;
+}
+
+export default function FillBlankEditor({
+  cid,
+  qid,
+  question,
+  refresh,
+  close,
+}: Props) {
+  const [title, setTitle] = useState(question?.title || "");
+  const [points, setPoints] = useState(question?.points || 0);
+
+  // For simplicity: single blank
+  const [blank, setBlank] = useState(
+    question?.blanks?.[0] || ""
+  );
+  const [answer, setAnswer] = useState(
+    question?.correctAnswers?.[0] || ""
   );
 
-  useEffect(() => {
-    const load = async () => {
-      if (question?._id) {
-        const q = await getQuestionById(question._id);
-        setLocalQ(q);
-      }
-    };
-    load();
-  }, [question]);
-
-  if (!localQ) return <p>Loading...</p>;
-
-  const addAnswer = () => {
-    setLocalQ({
-      ...localQ,
-      correctAnswers: [...localQ.correctAnswers, ""],
-    });
-  };
-
-  const updateAnswer = (i: number, value: string) => {
-    const updated = [...localQ.correctAnswers];
-    updated[i] = value;
-    setLocalQ({ ...localQ, correctAnswers: updated });
-  };
-
-  const deleteAnswer = (i: number) => {
-    const updated = [...localQ.correctAnswers];
-    updated.splice(i, 1);
-    setLocalQ({ ...localQ, correctAnswers: updated });
-  };
-
   const save = async () => {
-    const payload = { ...localQ, type: "FILL_BLANK" };
+    const payload = {
+      title,
+      points,
+      type: "FILL_BLANK",          // ✅ MUST MATCH MODEL
+      blanks: [blank],             // ✅ ARRAY
+      correctAnswers: [answer],    // ✅ ARRAY
+    };
 
     if (question?._id) {
       await updateQuestion(question._id, payload);
@@ -61,111 +48,76 @@ export default function FillBlankEditor({ cid, qid, question, refresh, close }: 
     close();
   };
 
+  const remove = async () => {
+    if (question?._id) {
+      await deleteQuestion(question._id);
+      refresh();
+      close();
+    }
+  };
+
   return (
-    <div className="border p-8 rounded bg-white shadow-sm max-w-3xl space-y-8">
+    <div className="card p-4">
+      <h4 className="mb-3">Fill in the Blank</h4>
 
-      {/* HEADER */}
-      <div className="flex justify-between items-center mb-8">
-
-        <div className="flex gap-6">
-          <select className="border rounded px-4 py-3 bg-gray-100">
-            <option>Easy fill the blank</option>
-            <option>Medium fill the blank</option>
-            <option>Hard fill the blank</option>
-          </select>
-
-          <select className="border rounded px-4 py-3 bg-gray-100" disabled>
-            <option>Fill In the Blank</option>
-          </select>
-        </div>
-
-        <div className="flex items-center gap-3">
-          <span className="font-semibold text-lg">pts:</span>
-          <input
-            type="number"
-            value={localQ.points}
-            onChange={(e) => setLocalQ({ ...localQ, points: Number(e.target.value) })}
-            className="border rounded px-3 py-2 w-24"
-          />
-        </div>
-      </div>
-
-      {/* TITLE */}
-      <div className="space-y-2">
-        <label className="block text-sm font-semibold">Question Title</label>
+      {/* Question */}
+      <div className="mb-3">
+        <label className="form-label">Question</label>
         <input
-          value={localQ.title}
-          onChange={(e) => setLocalQ({ ...localQ, title: e.target.value })}
-          className="border rounded p-3 w-full"
+          className="form-control"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          placeholder="Enter question text"
         />
       </div>
 
-      {/* INSTRUCTIONS */}
-      <div className="space-y-2">
-        <p className="text-gray-600 leading-relaxed">
-          Enter your question text, then define all possible correct answers for the blank.
-          Students will see the question followed by a small text box to type their answer.
-        </p>
-
-        <label className="font-semibold block">Question:</label>
-        <RichTextEditor
-          value={localQ.text}
-          onChange={(html: string) => setLocalQ({ ...localQ, text: html })}
+      {/* Blank */}
+      <div className="mb-3">
+        <label className="form-label">Blank</label>
+        <input
+          className="form-control"
+          value={blank}
+          onChange={(e) => setBlank(e.target.value)}
+          placeholder="e.g. ____"
         />
       </div>
 
-      {/* ANSWERS */}
-      <div className="space-y-4">
-        <h3 className="font-semibold text-lg">Answers:</h3>
+      {/* Correct Answer */}
+      <div className="mb-3">
+        <label className="form-label">Correct Answer</label>
+        <input
+          className="form-control"
+          value={answer}
+          onChange={(e) => setAnswer(e.target.value)}
+          placeholder="Enter correct answer"
+        />
+      </div>
 
-        <div className="space-y-4">
-          {localQ.correctAnswers.map((ans: string, idx: number) => (
-            <div
-              key={idx}
-              className="flex items-center gap-4 p-4 bg-gray-50 border rounded"
-            >
-              <span className="text-sm text-gray-600 w-40 font-medium">
-                Possible Answer:
-              </span>
+      {/* Points */}
+      <div className="mb-3">
+        <label className="form-label">Points</label>
+        <input
+          type="number"
+          className="form-control"
+          value={points}
+          onChange={(e) => setPoints(Number(e.target.value))}
+        />
+      </div>
 
-              <input
-                className="border rounded p-3 flex-1"
-                value={ans}
-                onChange={(e) => updateAnswer(idx, e.target.value)}
-              />
-
-              <button
-                onClick={() => deleteAnswer(idx)}
-                className="text-red-600 hover:text-red-800 text-xl"
-              >
-                🗑
-              </button>
-            </div>
-          ))}
-        </div>
-
-        <button
-          onClick={addAnswer}
-          className="text-red-600 font-medium mt-2"
-        >
-          + Add Another Answer
+      {/* Actions */}
+      <div className="d-flex gap-2">
+        <button className="btn btn-success" onClick={save}>
+          Save
         </button>
-      </div>
 
-      {/* BUTTONS */}
-      <div className="flex gap-4 pt-4">
-        <button
-          onClick={close}
-          className="px-6 py-3 border rounded hover:bg-gray-100"
-        >
+        {question?._id && (
+          <button className="btn btn-danger" onClick={remove}>
+            Delete
+          </button>
+        )}
+
+        <button className="btn btn-secondary" onClick={close}>
           Cancel
-        </button>
-
-        <button
-          onClick={save}
-          className="px-6 py-3 bg-red-600 text-white rounded hover:bg-red-700"
-        >
-          {question?._id ? "Update Question" : "Save Question"}
         </button>
       </div>
     </div>

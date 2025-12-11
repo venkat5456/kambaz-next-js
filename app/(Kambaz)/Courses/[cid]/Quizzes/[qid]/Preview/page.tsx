@@ -1,27 +1,33 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
 import {
   getQuizById,
   getQuestionsForQuiz,
   getCurrentUser,
 } from "../../client";
 
-export default function PreviewQuiz({ params }: any) {
-  const { cid, qid } = params; // ✅ FIX: correct param usage
+export default function PreviewQuiz() {
+  const { cid, qid } = useParams();
 
   const [quiz, setQuiz] = useState<any>(null);
   const [questions, setQuestions] = useState<any[]>([]);
   const [index, setIndex] = useState(0);
   const [user, setUser] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
 
   // -------------------------------
   // Load current user
   // -------------------------------
   useEffect(() => {
     const loadUser = async () => {
-      const u = await getCurrentUser();
-      setUser(u);
+      try {
+        const u = await getCurrentUser();
+        setUser(u);
+      } catch (err) {
+        console.error("❌ Failed to load user", err);
+      }
     };
     loadUser();
   }, []);
@@ -31,17 +37,30 @@ export default function PreviewQuiz({ params }: any) {
   // -------------------------------
   useEffect(() => {
     const load = async () => {
-      const quizData = await getQuizById(qid);
-      setQuiz(quizData);
+      try {
+        if (!qid) return;
 
-      const qs = await getQuestionsForQuiz(qid);
-      setQuestions(qs);
+        const quizData = await getQuizById(qid as string);
+        const qs = await getQuestionsForQuiz(qid as string);
+
+        setQuiz(quizData);
+        setQuestions(qs || []);
+      } catch (err) {
+        console.error("❌ Failed to load preview data", err);
+      } finally {
+        setLoading(false); // ✅ ALWAYS clear loading
+      }
     };
     load();
   }, [qid]);
 
-  if (!quiz) return <p className="p-5">Loading Quiz…</p>;
-  if (!questions.length) return <p className="p-5">No questions found.</p>;
+  // -------------------------------
+  // Loading / error states
+  // -------------------------------
+  if (loading) return <p className="p-5">Loading Quiz…</p>;
+  if (!quiz) return <p className="p-5 text-danger">Quiz not found.</p>;
+  if (!questions.length)
+    return <p className="p-5">No questions found.</p>;
 
   const q = questions[index];
 
@@ -86,7 +105,8 @@ export default function PreviewQuiz({ params }: any) {
           className="alert alert-warning py-2 mb-4"
           style={{ borderLeft: "5px solid #d58512" }}
         >
-          ⚠️ <strong>Faculty Preview Mode:</strong> Answers will NOT be saved.
+          ⚠️ <strong>Faculty Preview Mode:</strong> Answers will NOT
+          be saved.
         </div>
       )}
 
@@ -111,7 +131,9 @@ export default function PreviewQuiz({ params }: any) {
           {/* TITLE */}
           <div
             className="mb-3"
-            dangerouslySetInnerHTML={{ __html: q.body || q.title }}
+            dangerouslySetInnerHTML={{
+              __html: q.body || q.title,
+            }}
           />
 
           {/* TRUE / FALSE */}
@@ -133,7 +155,11 @@ export default function PreviewQuiz({ params }: any) {
             <div className="ms-2 mt-2">
               {q.options?.map((opt: any, i: number) => (
                 <label key={i} className="d-block mb-2">
-                  <input type="radio" className="me-2" disabled />
+                  <input
+                    type="radio"
+                    className="me-2"
+                    disabled
+                  />
                   {opt.text}
                 </label>
               ))}

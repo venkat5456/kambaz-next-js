@@ -127,7 +127,7 @@ export default function QuizzesPage() {
                 borderLeft: "4px solid green",
                 borderTop: "none",
                 borderRight: "none",
-                borderBottom: "1px solid #dee2e6",
+                borderBottom: "1px solid #0b0f8eff",
                 borderRadius: "0",
               }}
             >
