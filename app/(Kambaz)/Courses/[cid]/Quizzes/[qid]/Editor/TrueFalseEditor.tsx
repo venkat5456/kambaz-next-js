@@ -1,7 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { createQuestion, updateQuestion, deleteQuestion } from "../../client";
+import RichTextEditor from "./RichTextEditor";
+import {
+  createQuestion,
+  updateQuestion,
+  deleteQuestion,
+} from "../../client";
 
 interface Props {
   cid: string;
@@ -18,18 +23,31 @@ export default function TrueFalseEditor({
   refresh,
   close,
 }: Props) {
+  // -------------------------------
+  // State
+  // -------------------------------
   const [title, setTitle] = useState(question?.title || "");
+  const [body, setBody] = useState(question?.body || "");
   const [points, setPoints] = useState(question?.points || 0);
   const [correctBoolean, setCorrectBoolean] = useState(
     question?.correctBoolean ?? true
   );
 
+  // -------------------------------
+  // Save
+  // -------------------------------
   const save = async () => {
+    if (!title.trim()) {
+      alert("Title is required");
+      return;
+    }
+
     const payload = {
       title,
+      body,
       points,
-      type: "TRUE_FALSE",          // ✅ MUST MATCH MODEL
-      correctBoolean,              // ✅ MUST MATCH MODEL
+      type: "TRUE_FALSE",
+      correctBoolean,
     };
 
     if (question?._id) {
@@ -42,6 +60,9 @@ export default function TrueFalseEditor({
     close();
   };
 
+  // -------------------------------
+  // Delete
+  // -------------------------------
   const remove = async () => {
     if (question?._id) {
       await deleteQuestion(question._id);
@@ -50,22 +71,30 @@ export default function TrueFalseEditor({
     }
   };
 
+  // -------------------------------
+  // UI
+  // -------------------------------
   return (
     <div className="card p-4">
       <h4 className="mb-3">True / False Question</h4>
 
-      {/* Question Title */}
+      {/* TITLE */}
       <div className="mb-3">
-        <label className="form-label">Question</label>
+        <label className="form-label">Title</label>
         <input
           className="form-control"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          placeholder="Enter question text"
         />
       </div>
 
-      {/* Points */}
+      {/* QUESTION BODY (WYSIWYG) */}
+      <div className="mb-3">
+        <label className="form-label">Question</label>
+        <RichTextEditor value={body} onChange={setBody} />
+      </div>
+
+      {/* POINTS */}
       <div className="mb-3">
         <label className="form-label">Points</label>
         <input
@@ -76,11 +105,13 @@ export default function TrueFalseEditor({
         />
       </div>
 
-      {/* True / False */}
-      <div className="mb-3">
-        <label className="form-label d-block">Correct Answer</label>
+      {/* TRUE / FALSE */}
+      <div className="mb-4">
+        <label className="form-label d-block">
+          Correct Answer
+        </label>
 
-        <div className="form-check">
+        <div className="form-check mb-2">
           <input
             className="form-check-input"
             type="radio"
@@ -88,7 +119,9 @@ export default function TrueFalseEditor({
             checked={correctBoolean === true}
             onChange={() => setCorrectBoolean(true)}
           />
-          <label className="form-check-label">True</label>
+          <label className="form-check-label">
+            True
+          </label>
         </div>
 
         <div className="form-check">
@@ -99,23 +132,31 @@ export default function TrueFalseEditor({
             checked={correctBoolean === false}
             onChange={() => setCorrectBoolean(false)}
           />
-          <label className="form-check-label">False</label>
+          <label className="form-check-label">
+            False
+          </label>
         </div>
       </div>
 
-      {/* Actions */}
+      {/* ACTIONS */}
       <div className="d-flex gap-2">
         <button className="btn btn-success" onClick={save}>
           Save
         </button>
 
         {question?._id && (
-          <button className="btn btn-danger" onClick={remove}>
+          <button
+            className="btn btn-danger"
+            onClick={remove}
+          >
             Delete
           </button>
         )}
 
-        <button className="btn btn-secondary" onClick={close}>
+        <button
+          className="btn btn-secondary"
+          onClick={close}
+        >
           Cancel
         </button>
       </div>
